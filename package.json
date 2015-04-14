@@ -1,0 +1,38 @@
+{
+  "name": "converge-reactjs-demo",
+  "version": "0.0.1",
+  "author": "Robert Pearce",
+  "description": "Demo for Converge React Presentation",
+  "license": "MIT",
+  "homepage": "https://github.com/rpearce/converge-reactjs-demo",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rpearce/converge-reactjs-demo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rpearce/converge-reactjs-demo/issues"
+  },
+  "keywords": [
+    "react",
+    "javascript"
+  ],
+  "dependencies": {
+    "classnames": "^1.2.0",
+    "lodash": "^3.6.0",
+    "react": "^0.13.1"
+  },
+  "devDependencies": {
+    "browserify": "^9.0.8",
+    "coffee-script": "^1.9.1",
+    "coffeeify": "^1.0.0",
+    "uglify-js": "^2.4.19",
+    "watch": "^0.16.0"
+  },
+  "scripts": {
+    "build:sass": "mkdir -p build/ && sass src/sass/app.scss build/app.css --sourcemap=none --style=compressed",
+    "build:coffee": "export ENV=development && mkdir -p build/ && browserify -t coffeeify --extension=\".coffee\" src/coffee/app.coffee > build/app.js",
+    "clean": "rm -rf build/",
+    "watch:coffee": "watch 'npm run build:coffee' src/coffee",
+    "watch:sass": "watch 'npm run build:sass' src/sass"
+  }
+}

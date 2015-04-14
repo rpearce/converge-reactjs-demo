@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Converge Speaker List Demo</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Robert Pearce">
+    <meta name="description" content="Demo of Converge's speaker list with React">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./build/app.css" rel="stylesheet" media="all">
+  </head>
+  <body>
+
+    <script>
+      ;(function() {
+        var loadApp = function() {
+          var script = document.createElement('script');
+          script.src = './build/app.js';
+          document.body.appendChild(script);
+        };
+        window.addEventListener('load', loadApp, false);
+      })();
+    </script>
+  </body>
+</html>
