@@ -7,21 +7,20 @@
   position: relative;
   display: inline-block;
   vertical-align: top;
-  width: 25%;
   font-size: 1rem;
   opacity: 1;
   cursor: pointer;
-  &:nth-child(3n+1) {
-    background: -webkit-linear-gradient(45deg, #719c0b, #60d9f7, #cb4cd6);
-    background: linear-gradient(45deg, #719c0b, #60d9f7, #cb4cd6);
+  &:nth-child(n+1) {
+    background: -webkit-linear-gradient(45deg, #ff6000, #ffae00, #719c0b);
+    background: linear-gradient(45deg, #ff6000, #ffae00, #719c0b);
   }
   &:nth-child(2n+1) {
     background: -webkit-linear-gradient(45deg, #cc006a, #ff0000, #ffae00);
     background: linear-gradient(45deg, #cc006a, #ff0000, #ffae00);
   }
-  &:nth-child(n+1) {
-    background: -webkit-linear-gradient(45deg, #ff6000, #ffae00, #719c0b);
-    background: linear-gradient(45deg, #ff6000, #ffae00, #719c0b);
+  &:nth-child(3n+1) {
+    background: -webkit-linear-gradient(45deg, #719c0b, #60d9f7, #cb4cd6);
+    background: linear-gradient(45deg, #719c0b, #60d9f7, #cb4cd6);
   }
 }
 .speakerInfo {

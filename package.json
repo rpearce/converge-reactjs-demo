@@ -27,12 +27,5 @@
     "coffeeify": "^1.0.0",
     "uglify-js": "^2.4.19",
     "watch": "^0.16.0"
-  },
-  "scripts": {
-    "build:sass": "mkdir -p build/ && sass src/sass/app.scss build/app.css --sourcemap=none --style=compressed",
-    "build:coffee": "export ENV=development && mkdir -p build/ && browserify -t coffeeify --extension=\".coffee\" src/coffee/app.coffee > build/app.js",
-    "clean": "rm -rf build/",
-    "watch:coffee": "watch 'npm run build:coffee' src/coffee",
-    "watch:sass": "watch 'npm run build:sass' src/sass"
   }
 }
