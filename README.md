@@ -16,6 +16,11 @@ http://localhost:8000/
 ```
 
 ## Development
+Make all the things:
+```bash
+$ make
+```
+
 Easy removal of `build/` file:
 ```bash
 $ make clean
