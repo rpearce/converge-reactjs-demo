@@ -5,7 +5,6 @@ Info = React.createClass
   displayName: 'SpeakerInfo'
 
   render: ->
-    console.log @props.speaker
     div className: 'speakerInfo',
       h3 null, @props.speaker.name
       p null,

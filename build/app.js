@@ -31569,7 +31569,7 @@ React.render(Speakers(), div);
 
 
 
-},{"./speakers/Speakers.react":163,"react":158}],160:[function(require,module,exports){
+},{"./speakers/Speakers.react":164,"react":158}],160:[function(require,module,exports){
 var Constants;
 
 Constants = {
@@ -31590,7 +31590,6 @@ ref = React.DOM, div = ref.div, h3 = ref.h3, p = ref.p;
 Info = React.createClass({
   displayName: 'SpeakerInfo',
   render: function() {
-    console.log(this.props.speaker);
     return div({
       className: 'speakerInfo'
     }, h3(null, this.props.speaker.name), p(null, div(null, this.props.speaker.work), div(null, this.props.speaker.twitter)), p(null, this.props.speaker.bio));
@@ -31602,6 +31601,54 @@ module.exports = Info;
 
 
 },{"react":158}],162:[function(require,module,exports){
+var Info, React, Row, Speaker, _, div;
+
+React = require('react');
+
+_ = require('lodash');
+
+Info = React.createFactory(require('./Info.react'));
+
+Speaker = React.createFactory(require('./Speaker.react'));
+
+div = React.DOM.div;
+
+Row = React.createClass({
+  displayName: 'SpeakerRow',
+  render: function() {
+    return div(null, this._renderRow());
+  },
+  _renderRow: function() {
+    var rendered, selectedItems;
+    selectedItems = this.props.row.filter((function(_this) {
+      return function(item) {
+        return item.id === _this.props.selectedId;
+      };
+    })(this));
+    rendered = this.props.row.map((function(_this) {
+      return function(item) {
+        return Speaker({
+          key: item.id,
+          isSelected: item.id === _this.props.selectedId,
+          speaker: item,
+          updateSelectedId: _this.props.updateSelectedId
+        });
+      };
+    })(this));
+    if (selectedItems.length > 0) {
+      rendered.push(Info({
+        speaker: selectedItems[0]
+      }));
+    }
+    return rendered;
+  }
+});
+
+module.exports = Row;
+
+
+
+},{"./Info.react":161,"./Speaker.react":163,"lodash":3,"react":158}],163:[function(require,module,exports){
 var Constants, React, Speaker, classNames, div, h3, img, ref, span;
 
 React = require('react');
@@ -31651,8 +31698,8 @@ module.exports = Speaker;
 
 
 
-},{"./Constants":160,"classnames":2,"react":158}],163:[function(require,module,exports){
-var Constants, Info, React, Speaker, Speakers, _, div;
+},{"./Constants":160,"classnames":2,"react":158}],164:[function(require,module,exports){
+var Constants, React, Row, Speakers, _, div;
 
 React = require('react');
 
@@ -31660,9 +31707,7 @@ _ = require('lodash');
 
 Constants = require('./Constants');
 
-Info = React.createFactory(require('./Info.react'));
-
-Speaker = React.createFactory(require('./Speaker.react'));
+Row = React.createFactory(require('./Row.react'));
 
 div = React.DOM.div;
 
@@ -31678,42 +31723,13 @@ Speakers = React.createClass({
     return this._fetchSpeakers();
   },
   render: function() {
-    var rows;
     if (this.state.speakers.length > 0) {
-      rows = this._groupRows().map(this._renderRow);
       return div({
         className: 'speakers'
-      }, rows);
+      }, this._buildRows());
     } else {
       return null;
     }
-  },
-  _groupRows: function() {
-    return _.chunk(this.state.speakers, Constants.ITEMS_PER_ROW);
-  },
-  _renderRow: function(row, index) {
-    var rendered, selectedItems;
-    selectedItems = row.filter((function(_this) {
-      return function(item) {
-        return item.id === _this.state.selectedId;
-      };
-    })(this));
-    rendered = row.map((function(_this) {
-      return function(item) {
-        return Speaker({
-          key: item.id,
-          isSelected: item.id === _this.state.selectedId,
-          speaker: item,
-          updateSelectedId: _this._updateSelectedId
-        });
-      };
-    })(this));
-    if (selectedItems.length > 0) {
-      rendered.push(Info({
-        speaker: selectedItems[0]
-      }));
-    }
-    return rendered;
   },
   _fetchSpeakers: function() {
     var method, url, xhr;
@@ -31732,6 +31748,23 @@ Speakers = React.createClass({
     xhr.open(method, url, true);
     return xhr.send();
   },
+  _buildRows: function() {
+    var rows;
+    rows = this._groupRows();
+    return rows.map((function(_this) {
+      return function(row, index) {
+        return Row({
+          key: "row-" + index,
+          row: row,
+          selectedId: _this.state.selectedId,
+          updateSelectedId: _this._updateSelectedId
+        });
+      };
+    })(this));
+  },
+  _groupRows: function() {
+    return _.chunk(this.state.speakers, Constants.ITEMS_PER_ROW);
+  },
   _updateSelectedId: function(selectedId) {
     return this.setState({
       selectedId: selectedId
@@ -31743,4 +31776,4 @@ module.exports = Speakers;
 
 
 
-},{"./Constants":160,"./Info.react":161,"./Speaker.react":162,"lodash":3,"react":158}]},{},[159]);
+},{"./Constants":160,"./Row.react":162,"lodash":3,"react":158}]},{},[159]);

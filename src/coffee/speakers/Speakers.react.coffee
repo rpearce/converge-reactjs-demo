@@ -1,8 +1,7 @@
 React = require('react')
 _ = require('lodash')
 Constants = require('./Constants')
-Info = React.createFactory(require('./Info.react'))
-Speaker = React.createFactory(require('./Speaker.react'))
+Row = React.createFactory(require('./Row.react'))
 {div} = React.DOM
 
 Speakers = React.createClass
@@ -12,35 +11,22 @@ Speakers = React.createClass
     speakers: []
     selectedId: null
 
+  # Go and get the list of speakers
+  # asynchronously right before the
+  # component mounts on the page.
   componentWillMount: ->
     @_fetchSpeakers()
 
   render: ->
     if @state.speakers.length > 0
-      rows = @_groupRows().map(@_renderRow)
-      div className: 'speakers', rows
+      div className: 'speakers',
+        @_buildRows()
+
+    # If we don't have any speakers,
+    # simply don't render anything yet!
+    # Could put a loading indicator here.
     else
       null
-
-  # Break speakers in to groups of # itemsPerRow
-  _groupRows: ->
-    _.chunk(@state.speakers, Constants.ITEMS_PER_ROW)
-
-  # Render each row of `Speaker`s.
-  # If the row contains the currently selectedId,
-  # then push the `Info` component on to the array
-  # and return the array.
-  _renderRow: (row, index) ->
-    selectedItems = row.filter((item) => item.id is @state.selectedId)
-    rendered = row.map (item) =>
-      Speaker(
-        key: item.id
-        isSelected: item.id is @state.selectedId
-        speaker: item
-        updateSelectedId: @_updateSelectedId
-      )
-    rendered.push(Info(speaker: selectedItems[0])) if selectedItems.length > 0
-    rendered
 
   _fetchSpeakers: ->
     method = 'GET'
@@ -49,7 +35,22 @@ Speakers = React.createClass
     xhr.onreadystatechange = => @setState(speakers: JSON.parse(xhr.responseText)) if xhr.readyState is 4
     xhr.open(method, url, true)
     xhr.send()
-    #@setState(speakers: speakers)
+
+  # Build an array of rendered
+  # React Row components
+  _buildRows: ->
+    rows = @_groupRows()
+    rows.map (row, index) =>
+      Row(
+        key: "row-#{index}"
+        row: row
+        selectedId: @state.selectedId
+        updateSelectedId: @_updateSelectedId
+      )
+
+  # Break speakers in to groups of # itemsPerRow
+  _groupRows: ->
+    _.chunk(@state.speakers, Constants.ITEMS_PER_ROW)
 
   # This is the callback that is passed to each
   # `Speaker` component.
