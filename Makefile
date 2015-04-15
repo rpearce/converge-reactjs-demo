@@ -1,9 +1,12 @@
 SHELL=/bin/bash
 
-all: clean coffee sass
+all: clean npm coffee sass
 
 clean:
 	rm -rf build/
+
+npm:
+	npm install
 
 sass:
 	mkdir -p build/
