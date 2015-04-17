@@ -24,7 +24,7 @@
   }
 }
 .speakerInfo {
-  background-color: rgba(255,0,0,0.8);
+  background-color: #963b4c;
   min-height: 300px;
   font-size: 1rem;
   color: #FFF;
@@ -60,6 +60,21 @@
   text-align: center;
   color: #FFF;
   margin-top: 125px;
+}
+.speaker__triangle {
+  @include absolute(null, null, 0, 50%);
+  width: 0;
+  height: 0;
+  margin-left: -25px;
+  z-index: 1;
+  &:before {
+    @include absolute(null, null, 100%);
+    content: "";
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    border-bottom: 25px solid #963b4c;// rgba(255,0,0,0.8);
+  }
+  /*top: 100%;*/
 }
 .speaker__name {
   text-transform: uppercase;
