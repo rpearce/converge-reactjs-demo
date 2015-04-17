@@ -13,6 +13,7 @@ Speaker = React.createClass
         div className: 'speaker__info',
           h3 className: 'speaker__name', @props.speaker.name
           span null, @props.speaker.work
+      div(className: 'speaker__triangle', '') if @props.isSelected
 
   _buildStyle: ->
     {
