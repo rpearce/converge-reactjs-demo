@@ -31675,7 +31675,9 @@ Speaker = React.createClass({
       className: 'speaker__info'
     }, h3({
       className: 'speaker__name'
-    }, this.props.speaker.name), span(null, this.props.speaker.work))));
+    }, this.props.speaker.name), span(null, this.props.speaker.work))), this.props.isSelected ? div({
+      className: 'speaker__triangle'
+    }, '') : void 0);
   },
   _buildStyle: function() {
     return {
