@@ -6,9 +6,6 @@ Constants = require('./Constants')
 Speaker = React.createClass
   displayName: 'Speaker'
 
-  getInitialState: ->
-    isSelected: false
-
   render: ->
     div className: 'speaker', style: @_buildStyle(), onClick: @_handleToggleClick,
       img className: 'speaker__image', src: @props.speaker.image
